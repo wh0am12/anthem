@@ -1,0 +1,4 @@
+name: anthem
+version: '1.0-SNAPSHOT'
+main: org.whoami.anthem.Anthem
+api-version: '1.21'
