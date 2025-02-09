@@ -1,8 +1,9 @@
-package org.whoami.anthem.gui;
+package org.whoami.anthem.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.whoami.anthem.gui.BackpackGUIManager;
 
 public class GUIListener implements Listener {
     private final BackpackGUIManager guiManager;

@@ -16,10 +16,12 @@ public class BackpackBuilder extends CustomItemBuilder{
     }
     public BackpackBuilder withUUID(String UUID){
         result.set(UUID,"backpackUUID");
+        uuid = UUID;
         return this;
     }
     public BackpackBuilder withUUID(UUID UUID){
         result.set(UUID.toString(),"backpackUUID");
+        uuid = UUID.toString();
         return this;
     }
 

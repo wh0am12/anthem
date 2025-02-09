@@ -1,17 +1,20 @@
-package org.whoami.anthem.backpack;
+package org.whoami.anthem.listeners;
 
 import com.saicone.rtag.RtagItem;
-import org.bukkit.event.Event;
-import org.bukkit.event.EventException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.EventExecutor;
-import org.jetbrains.annotations.NotNull;
+import org.whoami.anthem.Anthem;
+
+import java.util.HashMap;
 
 public class BackpackItemListener implements Listener{
+    private Anthem plugin;
+    public BackpackItemListener(Anthem plugin){
+        this.plugin=plugin;
+    }
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event){
         if(event.getAction()== Action.RIGHT_CLICK_AIR){
@@ -21,9 +24,8 @@ public class BackpackItemListener implements Listener{
                 return;
             }
             if(tag.get("customID").equals("backpack_v1")){
-                event.getPlayer().sendMessage("isBackpack");
+                plugin.getBackpackGUIManager().openBackpack(event.getPlayer(), tag.get("backpackUUID"));
             }else{
-                event.getPlayer().sendMessage("not");
 
             }
         }

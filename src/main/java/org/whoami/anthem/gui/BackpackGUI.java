@@ -45,7 +45,6 @@ public class BackpackGUI implements InventoryCloseHandler {
         }
         String[] base64Array = base64.split(",");
         ItemStack[] stacks = new ItemStack[27];
-        AtomicInteger count = new AtomicInteger();
         for (int i = 0; i < base64Array.length; i++) {
             int finalI = i;
             streamInstance.fromBase64(base64Array[i],(itemStack ->{

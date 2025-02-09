@@ -51,7 +51,7 @@ public class BackpackCommand implements CommandExecutor, TabCompleter {
                                         "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDE1MGZkOGJmNzc4ZjA1OWZiOTkwYzk3Y2U3YzA2ZTE5NWJhYWI5MzU5YTc5MjU0Zjc0MTRiYTI0M2Y0Y2MwYSJ9fX0=")
                                 .withUUID(strings[1])
                                 .withName(ChatColor.GOLD + "Backpack")
-                                .withLore(List.of(ChatColor.GRAY + backpackUUID.toString()))
+                                .withLore(List.of(ChatColor.GRAY + strings[1]))
                                 .build();
                         player.getInventory().addItem(item);
                         return true;
