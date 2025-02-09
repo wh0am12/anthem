@@ -1,2 +1,4 @@
-package org.whoami.anthem.backpack;public class BackpackUI {
+package org.whoami.anthem.backpack;
+
+public class BackpackUI {
 }

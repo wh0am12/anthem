@@ -21,6 +21,14 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <outputDirectory>D:/spigot/plugins</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
@@ -59,14 +67,55 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>Jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>spigot</artifactId>
             <version>1.21.4-R0.1-SNAPSHOT</version>
+            <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>26.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.saicone.rtag</groupId>
+            <artifactId>rtag</artifactId>
+            <version>1.5.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Other modules -->
+        <dependency>
+            <groupId>com.saicone.rtag</groupId>
+            <artifactId>rtag-block</artifactId>
+            <version>1.5.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.saicone.rtag</groupId>
+            <artifactId>rtag-entity</artifactId>
+            <version>1.5.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.saicone.rtag</groupId>
+            <artifactId>rtag-item</artifactId>
+            <version>1.5.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.49.0.0</version>
+        </dependency>
     </dependencies>
+
 </project>

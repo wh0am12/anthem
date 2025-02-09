@@ -1,4 +1,9 @@
 name: anthem
-version: '1.0-SNAPSHOT'
+version: 1.0
 main: org.whoami.anthem.Anthem
 api-version: '1.21'
+description: just a plugin
+commands:
+  backpack:
+    description: test
+    usage: /<command> <new/open> <uuid>
