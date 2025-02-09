@@ -3,6 +3,7 @@ package org.whoami.anthem.gui;
 import com.saicone.rtag.item.ItemTagStream;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -11,14 +12,16 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
-public class BackpackGUI implements InventoryCloseHandler {
+public class BackpackGUI implements InventoryCloseHandler , InventoryOpenHandler{
     private ItemTagStream streamInstance = ItemTagStream.INSTANCE;
     private final BackpackGUIManager manager;
     private final String uuid;
     private Inventory inventory;
+    private List<String> activePlayer;
     public BackpackGUI(BackpackGUIManager manager,String uuid){
         this.uuid = uuid;
         this.manager = manager;
+        this.activePlayer = new ArrayList<>();
     }
     public Inventory getInventory() {
         if(inventory==null){
@@ -38,6 +41,14 @@ public class BackpackGUI implements InventoryCloseHandler {
             base64List.add(streamInstance.toBase64(stack));
         }
         manager.getPlugin().getBackpackDatabase().putInventoryData(uuid,27,String.join(",",base64List));
+        activePlayer.remove(event.getPlayer().getUniqueId().toString());
+        if(activePlayer.isEmpty()){
+            manager.unregisterInventoryCloseHandler(this.inventory);
+            manager.removeGUI(uuid);
+        }
+    }
+    public void onOpen(InventoryOpenEvent event) {
+        activePlayer.add(event.getPlayer().getUniqueId().toString());
     }
     private ItemStack[] prepareItemStacks(String base64){
         if(base64==null){
@@ -53,4 +64,6 @@ public class BackpackGUI implements InventoryCloseHandler {
         }
         return stacks;
     }
+
+
 }
