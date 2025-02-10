@@ -23,6 +23,7 @@ public class BackpackGUIManager {
         BackpackGUI backpackGUI = new BackpackGUI(this,UUID);
         guiMap.put(UUID,backpackGUI);
         this.registerInventoryCloseHandler(backpackGUI.getInventory(), backpackGUI);
+        this.registerInventoryOpenHandler(backpackGUI.getInventory(), backpackGUI);
         return backpackGUI;
     }
     public void registerInventoryCloseHandler(Inventory inventory, InventoryCloseHandler handler){
@@ -31,6 +32,14 @@ public class BackpackGUIManager {
     }
     public void unregisterInventoryCloseHandler(Inventory inventory){
         this.closeHandlerMap.remove(inventory);
+        plugin.getLogger().log(Level.SEVERE,"unregister");
+    }
+    public void registerInventoryOpenHandler(Inventory inventory, InventoryOpenHandler handler){
+        this.openHandlerMap.put(inventory,handler);
+        plugin.getLogger().log(Level.SEVERE,"register");
+    }
+    public void unregisterInventoryOpenHandler(Inventory inventory){
+        this.openHandlerMap.remove(inventory);
         plugin.getLogger().log(Level.SEVERE,"unregister");
     }
     public void removeGUI(String UUID){
@@ -47,6 +56,7 @@ public class BackpackGUIManager {
         if(handler!=null){
             handler.onOpen(inventoryOpenEvent);
         }
+        plugin.getLogger().log(Level.SEVERE,"open");
     }
     public void openBackpack(Player player, String UUID){
         if(guiMap.containsKey(UUID)){
