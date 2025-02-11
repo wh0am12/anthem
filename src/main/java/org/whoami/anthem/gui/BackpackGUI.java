@@ -1,18 +1,22 @@
 package org.whoami.anthem.gui;
 
+import com.saicone.rtag.RtagItem;
 import com.saicone.rtag.item.ItemTagStream;
 import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.Material;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
-public class BackpackGUI implements InventoryCloseHandler , InventoryOpenHandler{
+public class BackpackGUI implements InventoryCloseHandler , InventoryOpenHandler, InventoryDragHandler, InventoryClickHandler{
+    private final String[] BannedItem = {
+            "backpack_v1"
+    };
     private ItemTagStream streamInstance = ItemTagStream.INSTANCE;
     private final BackpackGUIManager manager;
     private final String uuid;
@@ -44,11 +48,36 @@ public class BackpackGUI implements InventoryCloseHandler , InventoryOpenHandler
         activePlayer.remove(event.getPlayer().getUniqueId().toString());
         if(activePlayer.isEmpty()){
             manager.unregisterInventoryCloseHandler(this.inventory);
+            manager.unregisterInventoryOpenHandler(this.inventory);
+            manager.unregisterInventoryDragHandler(this.inventory);
+            manager.unregisterInventoryClickHandler(this.inventory);
             manager.removeGUI(uuid);
         }
     }
     public void onOpen(InventoryOpenEvent event) {
         activePlayer.add(event.getPlayer().getUniqueId().toString());
+    }
+    public void onDrag(InventoryDragEvent event) {
+        RtagItem item = new RtagItem(event.getOldCursor());
+        String ID = item.getOptional("customID").or("nullbb");
+        manager.getPlugin().getLogger().log(Level.SEVERE,ID);
+        if(Arrays.stream(BannedItem).anyMatch(ID::equals)){
+            event.setCancelled(true);
+        }
+    }
+    public void onClick(InventoryClickEvent event) {
+        if(event.getCurrentItem().getData().getItemType()== Material.AIR){
+            return;
+        }
+        if (event.getClick()== ClickType.NUMBER_KEY) {
+            event.setCancelled(true);
+        }
+        RtagItem item = new RtagItem(event.getCurrentItem());
+        String ID = item.getOptional("customID").or("null");
+        manager.getPlugin().getLogger().log(Level.SEVERE, ID);
+        if (Arrays.stream(BannedItem).anyMatch(ID::equals)) {
+            event.setCancelled(true);
+        }
     }
     private ItemStack[] prepareItemStacks(String base64){
         if(base64==null){
@@ -64,6 +93,5 @@ public class BackpackGUI implements InventoryCloseHandler , InventoryOpenHandler
         }
         return stacks;
     }
-
 
 }

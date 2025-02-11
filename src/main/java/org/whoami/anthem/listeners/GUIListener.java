@@ -2,8 +2,7 @@ package org.whoami.anthem.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.*;
 import org.whoami.anthem.gui.BackpackGUIManager;
 
 public class GUIListener implements Listener {
@@ -20,5 +19,13 @@ public class GUIListener implements Listener {
     @EventHandler
     public void onOpen(InventoryOpenEvent event){
         guiManager.handleOpen(event);
+    }
+    @EventHandler
+    public void onDrag(InventoryDragEvent event){
+        guiManager.handleDrag(event);
+    }
+    @EventHandler
+    public void onClick(InventoryClickEvent event){
+        guiManager.handleClick(event);
     }
 }

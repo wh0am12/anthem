@@ -8,11 +8,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.whoami.anthem.Anthem;
 
-import java.util.HashMap;
-
-public class BackpackItemListener implements Listener{
+public class ItemInteractListener implements Listener{
     private Anthem plugin;
-    public BackpackItemListener(Anthem plugin){
+    public ItemInteractListener(Anthem plugin){
         this.plugin=plugin;
     }
     @EventHandler
@@ -23,7 +21,7 @@ public class BackpackItemListener implements Listener{
             if(!(tag.get("customID")instanceof String)){
                 return;
             }
-            if(tag.get("customID").equals("backpack_v1")){
+            if(tag.getOptional("customID").or("null").equals("backpack_v1")){
                 plugin.getBackpackGUIManager().openBackpack(event.getPlayer(), tag.get("backpackUUID"));
             }else{
 

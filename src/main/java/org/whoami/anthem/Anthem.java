@@ -2,7 +2,7 @@ package org.whoami.anthem;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.whoami.anthem.listeners.BackpackItemListener;
+import org.whoami.anthem.listeners.ItemInteractListener;
 import org.whoami.anthem.commands.BackpackCommand;
 import org.whoami.anthem.database.BackpackDatabase;
 import org.whoami.anthem.gui.BackpackGUIManager;
@@ -26,7 +26,7 @@ public final class Anthem extends JavaPlugin {
         this.backpackDatabase.load();
         this.backpackGUIManager = new BackpackGUIManager(this);
         this.getCommand("backpack").setExecutor(new BackpackCommand(this));
-        this.getServer().getPluginManager().registerEvents(new BackpackItemListener(this),this);
+        this.getServer().getPluginManager().registerEvents(new ItemInteractListener(this),this);
         this.getServer().getPluginManager().registerEvents(new GUIListener(backpackGUIManager),this);
     }
 
